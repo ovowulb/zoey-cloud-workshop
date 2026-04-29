@@ -13,12 +13,15 @@ conn = pymysql.connect(
 )
 
 cursor = conn.cursor()
-cursor.execute("SELECT name, telephone FROM contacts")
+cursor.execute("SELECT name, telephone, email FROM contacts")
 
 data = []
 for row in cursor.fetchall():
     data.append({
         "name": row[0],
+        "telephone": row[1],
+        "email": row[2]
+    })
         "telephone": row[1]
     })
 

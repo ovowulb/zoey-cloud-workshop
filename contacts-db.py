@@ -13,7 +13,7 @@ conn = pymysql.connect(
 )
 
 cursor = conn.cursor()
-cursor.execute("SELECT name, telephone FROM contacts")
+cursor.execute("SELECT name, telephone, email FROM contacts")
 
 print("""
 <!DOCTYPE html>
@@ -53,7 +53,7 @@ tr:nth-child(even) {
 """)
 
 for row in cursor.fetchall():
-    print(f"<tr><td>{row[0]}</td><td>{row[1]}</td></tr>")
+    print(f"<tr><td>{row[0]}</td><td>{row[1]}</td><td>{row[2]}</td></tr>")
 
 print("""
 </table>
