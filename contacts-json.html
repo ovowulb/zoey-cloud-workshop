@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contacts</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    padding: 20px;
+    font-weight: 600;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+thead th {
+    background-color: #e6d7ff;
+    color: #333;
+    padding: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+tbody td {
+    padding: 12px;
+    color: #222;
+}
+
+tbody tr:nth-child(odd) td {
+    background-color: white;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: #fdfd96;
+}
+
+tbody tr:hover td {
+    background-color: #ddd;
+    transition: 0.2s;
+}
+</style>
+
+</head>
+<body>
+
+<h2>📒 Contact List</h2>
+
+<table id="tbl">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+fetch("/cgi-bin/contacts-json.py")
+.then(res => res.json())
+.then(data => {
+    let tbody = document.querySelector("#tbl tbody");
+
+    data.data.forEach(item => {
+        let row = `<tr>
+            <td>${item.name}</td>
+            <td>${item.telephone}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+})
+.catch(err => {
+    console.error("Error:", err);
+});
+</script>
+
+</body>
+</html>
