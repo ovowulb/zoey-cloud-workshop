@@ -5,32 +5,36 @@ import json
 
 print("Content-Type: application/json\n")
 
-conn = pymysql.connect(
-    host="localhost",
-    user="appuser",
-    password="1234",
-    database="contactdb"
-)
+try:
+    conn = pymysql.connect(
+        host="localhost",
+        user="appuser",
+        password="1234",
+        database="contactdb"
+    )
 
-cursor = conn.cursor()
-cursor.execute("SELECT name, telephone, email FROM contacts")
+    cursor = conn.cursor()
+    cursor.execute("SELECT name, telephone, email, address FROM contacts")
 
-data = []
-for row in cursor.fetchall():
-    data.append({
-        "name": row[0],
-        "telephone": row[1],
-        "email": row[2]
-    })
-        "telephone": row[1]
-    })
+    data = []
+    for row in cursor.fetchall():
+        data.append({
+            "name": row[0],
+            "telephone": row[1],
+            "email": row[2],
+            "address": row[3]
+        })
 
-result = {
-    "ok": True,
-    "count": len(data),
-    "data": data
-}
+    print(json.dumps({
+        "ok": True,
+        "count": len(data),
+        "data": data
+    }))
 
-print(json.dumps(result))
+    conn.close()
 
-conn.close()
+except Exception as e:
+    print(json.dumps({
+        "ok": False,
+        "error": str(e)
+    }))
