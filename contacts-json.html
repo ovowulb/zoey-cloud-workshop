@@ -67,6 +67,8 @@ tbody tr:hover td {
             <th>Name</th>
             <th>Phone Number</th>
             <th>Email</th>
+            <th>Address</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -83,6 +85,8 @@ fetch("/cgi-bin/contacts-json.py")
         let row = `<tr>
             <td>${item.name}</td>
             <td>${item.telephone}</td>
+            <td>${item.email}</td>
+            <td>${item.address}</td>
         </tr>`;
         tbody.innerHTML += row;
     });
